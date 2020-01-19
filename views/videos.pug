@@ -1,0 +1,58 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title= title
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css' integrity='sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=' crossorigin='anonymous')
+    style(type='text/css' media='screen').
+      body {
+        min-height: 100vh;
+        display: grid;
+        align-items: center;
+      }
+
+      .content {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      ul {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
+
+      li {
+        flex: auto;
+        text-align: center;
+      }
+
+      video {
+        width: 100%;
+        height: auto;
+      }
+
+      .open-all {
+        text-decoration: none;
+        margin-top: 20px;
+        display: inline-block;
+        color: #0791d3;
+        font-family: Arial, sans-serif;
+      }
+  body
+    if videos.length
+      div.content
+        ul
+          each video in videos
+            li
+              a(class='video__link', href=video, title='Open ' + video.replace('/videos/', '') + '.mp4')
+                video(loop='' muted='')
+                  source(src=video + '.mp4' type='video/mp4')
+                  |     Your browser does not support the video tag.
+
+        a(class='open-all', href='#', title='Open all videos') Open all videos
+
+    script(src='/videos.js')

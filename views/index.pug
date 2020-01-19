@@ -1,15 +1,17 @@
 doctype html
-head
-  meta(charset='UTF-8')
-  title= title
-  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css' integrity='sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=' crossorigin='anonymous')
-  style(type='text/css' media='screen').
-    video {
-      width: 100%;
-      height: auto;
-    }
-video(loop='' poster=videoPoster onclick='play_pause()' muted='')
-  source(src=videoPath type='video/mp4')
-  |     Your browser does not support the video tag.
-script(src='/socket.io/socket.io.js')
-script(src='/main.js')
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title= title
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css' integrity='sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=' crossorigin='anonymous')
+    style(type='text/css' media='screen').
+      video {
+        width: 100%;
+        height: auto;
+      }
+  body
+    video(loop='' poster=videoPoster onclick='play_pause()' muted='')
+      source(src=videoPath type='video/mp4')
+      |     Your browser does not support the video tag.
+    script(src='/socket.io/socket.io.js')
+    script(src='/index.js')
