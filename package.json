@@ -2,18 +2,22 @@
   "name": "socketio_sync_videos",
   "version": "0.0.0",
   "description": "Use socket.io to play multiple videos synchronously",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elalemanyo/socketio_sync_videos.git"
+  },
+  "license": "UNLICENSED",
   "main": "index.js",
   "dependencies": {
     "colors": "^1.4.0",
     "express": "^4.17.1",
-    "fs": "0.0.1-security",
+    "file-system": "2.2.2",
     "http": "0.0.0",
+    "nodemon": "^2.0.2",
     "pug": "^2.0.4",
-    "socket.io": "^2.3.0",
-    "nodemon": "^2.0.2"
+    "socket.io": "^2.3.0"
   },
   "scripts": {
-    "start:prod": "node index.js",
     "start": "nodemon --inspect=0.0.0.0 index.js"
   }
 }
