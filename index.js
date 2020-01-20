@@ -1,16 +1,13 @@
 var express = require('express'),
     app = express(),
     path = require('path'),
-    fs = require('fs'),
+    fs = require('file-system'),
     server = require('http').createServer(app),
     io = require('socket.io')(server),
-    port = process.env.PORT || 3000,
-    colors = require('colors/safe');
-    error = colors.red,
-    warn = colors.yellow;
+    port = process.env.PORT || 3000;
 
 server.listen(port, () => {
-    console.log(colors.black.bgGreen('Server listening at port %d\n'), port);
+    console.log('Server listening at port %d\n', port);
 });
 
 
@@ -19,33 +16,31 @@ app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routing
-app.get('/', function(req , res) {
+app.get('/', (req, res) => {
     res.render('index', {
         title: 'Big Buck Bunny',
-        videoPath: '/BigBuckBunny.mp4',
-        videoPoster: '/BigBuckBunny_poster.jpg'
+        videoPath: '/BigBuckBunny.mp4'
     });
 });
 
-app.get('/videos', function(req , res) {
+app.get('/videos', (req, res) => {
     res.render('videos', {
         title: 'Videos',
         videos: getFilesFromDir('./public/videos/','.mp4')
     });
 });
 
-app.get('/videos/:video', function(req , res) {
+app.get('/videos/:video', (req, res) => {
     res.render('index', {
         title: req.params.video,
-        videoPath: '/videos/' + req.params.video + '.mp4',
-        videoPoster: ''
+        videoPath: '/videos/' + req.params.video + '.mp4'
     });
 });
 
-var clients = [];
+let clients = [];
 
 io.on('connection', (socket) => {
-    console.log(colors.brightGreen('New Client with id: ' + socket.id + '\n'));
+    console.log('New Client with id: ' + socket.id + '\n');
 
     if (clients.length > 0) {
         io.to(clients[0]).emit('ask status');
@@ -54,23 +49,23 @@ io.on('connection', (socket) => {
     clients.push(socket.id);
 
     socket.on('play', () => {
-        console.log(warn('Start playing\n'));
+        console.log('Start playing\n');
         io.emit('play');
     });
 
     socket.on('pause', () => {
-        console.log(warn('Pause!!!\n'));
+        console.log('Pause!!!\n');
         io.emit('pause');
     });
 
     socket.on('answer status', (data) => {
         io.emit('sync players', data);
-        console.log(warn('Sync Players => { paused: ' + data['paused'] + ', time: ' + data['currentTime'] + ' }\n'));
+        console.log('Sync Players => { paused: ' + data['paused'] + ', time: ' + data['currentTime'] + ' }\n');
     });
 
     socket.on('disconnect', () => {
         clients.splice(clients.indexOf(socket.id), 1);
-        console.log(error('Client ' + socket.id + ' is gone\n'));
+        console.log('Client ' + socket.id + ' is gone\n');
     });
 });
 
@@ -84,10 +79,10 @@ function getFilesFromDir(startPath, filter) {
 
     var foundFiles = [];
 
-    var files=fs.readdirSync(startPath);
-    for(var i=0;i<files.length;i++){
-        var filename=path.join(startPath,files[i]);
-        var stat = fs.lstatSync(filename);
+    var files = fs.readdirSync(startPath);
+    for(let i = 0; i < files.length; i++){
+        let filename = path.join(startPath,files[i]);
+        let stat = fs.lstatSync(filename);
 
         if (stat.isDirectory()){
             fromDir(filename,filter); //recurse
