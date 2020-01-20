@@ -10,8 +10,8 @@ html(lang='en')
         height: auto;
       }
   body
-    video(loop='' poster=videoPoster onclick='play_pause()' muted='')
-      source(src=videoPath type='video/mp4')
+    video(onclick='play_pause()' loop='' muted='' preload='metadata')
+      source(src=videoPath + '#t=1' type='video/mp4')
       |     Your browser does not support the video tag.
     script(src='/socket.io/socket.io.js')
     script(src='/index.js')

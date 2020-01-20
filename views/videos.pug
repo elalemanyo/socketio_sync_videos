@@ -49,8 +49,8 @@ html(lang='en')
           each video in videos
             li
               a(class='video__link', href=video, title='Open ' + video.replace('/videos/', '') + '.mp4')
-                video(loop='' muted='')
-                  source(src=video + '.mp4' type='video/mp4')
+                video(loop='' muted='' preload='metadata')
+                  source(src=video + '.mp4#t=1' type='video/mp4')
                   |     Your browser does not support the video tag.
 
         a(class='open-all', href='#', title='Open all videos') Open all videos
