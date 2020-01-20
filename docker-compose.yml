@@ -9,20 +9,11 @@ services:
       - .:/usr/app/
       - /usr/app/node_modules
     restart: always
-    labels:
-      - 'traefik.backend=${PROJECT_NAME}-web'
-      - 'traefik.port=3000'
-      - 'traefik.frontend.rule=Host:${PROJECT_NAME}.test'
-      - 'traefik.docker.network=docker-localhost_frontend'
-    # ports:
-    #   - '80:3000'
+    ports:
+      - '80:3000'
     networks:
-      frontend: {}
       default: {}
 
 networks:
-  frontend:
-    external:
-      name: docker-localhost_frontend
   default:
     driver: bridge
